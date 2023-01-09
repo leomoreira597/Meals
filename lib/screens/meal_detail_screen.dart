@@ -35,74 +35,81 @@ class MealDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final meal = ModalRoute.of(context)?.settings.arguments as Meal;
     return Scaffold(
-        backgroundColor: Theme.of(context).canvasColor,
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            meal.title,
-            style: const TextStyle(fontFamily: 'Raleway'),
-          ),
+      backgroundColor: Theme.of(context).canvasColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          meal.title,
+          style: const TextStyle(fontFamily: 'Raleway'),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 300,
-                width: double.infinity,
-                child: Image.network(
-                  meal.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: Image.network(
+                meal.imageUrl,
+                fit: BoxFit.cover,
               ),
-              _createSectionTitle(
-                context,
-                'Ingredients',
+            ),
+            _createSectionTitle(
+              context,
+              'Ingredients',
+            ),
+            _createSectionContainer(
+              ListView.builder(
+                itemCount: meal.ingredients.length,
+                itemBuilder: (ctx, index) {
+                  return Card(
+                    color: Colors.amber,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 5,
+                        horizontal: 10,
+                      ),
+                      child: Text(
+                        meal.ingredients[index],
+                      ),
+                    ),
+                  );
+                },
               ),
-              _createSectionContainer(
-                ListView.builder(
-                  itemCount: meal.ingredients.length,
-                  itemBuilder: (ctx, index) {
-                    return Card(
-                      color: Colors.amber,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 10,
+            ),
+            _createSectionTitle(context, 'Passos'),
+            _createSectionContainer(
+              ListView.builder(
+                itemCount: meal.steps.length,
+                itemBuilder: (ctx, index) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        leading: CircleAvatar(
+                          child: Text('${index + 1}'),
                         ),
-                        child: Text(
-                          meal.ingredients[index],
+                        title: Text(
+                          meal.steps[index],
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
                         ),
                       ),
-                    );
-                  },
-                ),
+                      const Divider(),
+                    ],
+                  );
+                },
               ),
-              _createSectionTitle(context, 'Passos'),
-              _createSectionContainer(
-                ListView.builder(
-                  itemCount: meal.steps.length,
-                  itemBuilder: (ctx, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          leading: CircleAvatar(
-                            child: Text('${index + 1}'),
-                          ),
-                          title: Text(
-                            meal.steps[index],
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        const Divider(),
-                      ],
-                    );
-                  },
-                ),
-              )
-            ],
-          ),
-        ));
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.star),
+        onPressed: (){
+          Navigator.of(context).pop(meal);
+        },
+      ),
+    );
   }
 }

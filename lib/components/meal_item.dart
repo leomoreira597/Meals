@@ -8,7 +8,17 @@ class MealItem extends StatelessWidget {
   const MealItem(this.meal, {Key? key}) : super(key: key);
 
   void _selectMeal(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.MEAL_DETAIL, arguments: meal);
+    Navigator.of(context).pushNamed(
+      AppRoutes.MEAL_DETAIL,
+      arguments: meal,
+    ).then((result) {
+      if(result == null){
+        print('Sem Resultado');
+      }
+      else{
+        print('O resultado é $result');
+      }
+    });
   }
 
   @override
@@ -71,7 +81,10 @@ class MealItem extends StatelessWidget {
                       const SizedBox(
                         width: 6,
                       ),
-                      Text('${meal.duration} min', style: const TextStyle(color: Colors.black),),
+                      Text(
+                        '${meal.duration} min',
+                        style: const TextStyle(color: Colors.black),
+                      ),
                     ],
                   ),
                   Row(
@@ -80,7 +93,10 @@ class MealItem extends StatelessWidget {
                       const SizedBox(
                         width: 6,
                       ),
-                      Text(meal.complexityText, style: const TextStyle(color: Colors.black),),
+                      Text(
+                        meal.complexityText,
+                        style: const TextStyle(color: Colors.black),
+                      ),
                     ],
                   ),
                   Row(
@@ -89,7 +105,10 @@ class MealItem extends StatelessWidget {
                       const SizedBox(
                         width: 6,
                       ),
-                      Text(meal.costText, style: const TextStyle(color: Colors.black),),
+                      Text(
+                        meal.costText,
+                        style: const TextStyle(color: Colors.black),
+                      ),
                     ],
                   ),
                 ],
