@@ -5,11 +5,20 @@ import 'package:meals/screens/settings_screen.dart';
 import 'package:meals/screens/tabs_screen.dart';
 import 'package:meals/utils/app_routes.dart';
 
+import 'data/dummy_data.dart';
+import 'models/meals.dart';
+
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Meal> _avaliableMeals = DUMMY_MEALS;
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData();
@@ -40,7 +49,7 @@ class MyApp extends StatelessWidget {
       //     )),
       routes: {
         AppRoutes.HOME: (ctx) => const TabScreen(),
-        AppRoutes.CATEGORIES_MEALS: (ctx) => CategoriesMealsScreen(),
+        AppRoutes.CATEGORIES_MEALS: (ctx) => CategoriesMealsScreen(_avaliableMeals),
         AppRoutes.MEAL_DETAIL: (ctx) => const MealDetailScreen(),
         AppRoutes.SETTINGS: (ctx) => const SettingsScreens(),
       },
