@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals/screens/categories_meals_screen.dart';
-import 'package:meals/screens/categorys_screens.dart';
+import 'package:meals/screens/meal_detail_screen.dart';
+import 'package:meals/screens/tabs_screen.dart';
 import 'package:meals/utils/app_routes.dart';
 
 void main() {
@@ -13,21 +14,33 @@ class MyApp extends StatelessWidget {
     final ThemeData theme = ThemeData();
     return MaterialApp(
       title: 'DeliMeals',
-      theme: theme.copyWith(
-          primaryColor: Colors.pink,
-          canvasColor: Color.fromRGBO(255, 254, 229, 1),
-          colorScheme: theme.colorScheme.copyWith(
-            secondary: Colors.amber,
+      theme: ThemeData(
+        primaryColor: Colors.pink,
+        accentColor: Colors.amber,
+        canvasColor: const Color.fromRGBO(255, 254, 229, 1),
+        textTheme: const TextTheme(
+        headline6: TextStyle(
+                fontSize: 20,
+                fontFamily: 'Raleway',
           ),
-          textTheme: const TextTheme(
-            headline6: TextStyle(
-              fontSize: 20,
-              fontFamily: 'RobotoCondensed',
-            ),
-          )),
+        ),
+      ),
+      // theme: theme.copyWith(
+      //     primaryColor: Colors.pink,
+      //     canvasColor: const Color.fromRGBO(255, 254, 229, 1),
+      //     colorScheme: theme.colorScheme.copyWith(
+      //       secondary: Colors.amber,
+      //     ),
+      //     textTheme: const TextTheme(
+      //       headline6: TextStyle(
+      //         fontSize: 20,
+      //         fontFamily: 'Raleway',
+      //       ),
+      //     )),
       routes: {
-        AppRoutes.HOME: (ctx) => CategoriesScreens(),
+        AppRoutes.HOME: (ctx) => TabScreen(),
         AppRoutes.CATEGORIES_MEALS: (ctx) => CategoriesMealsScreen(),
+        AppRoutes.MEAL_DETAIL: (ctx) => MealDetailScreen(),
       },
     );
   }
